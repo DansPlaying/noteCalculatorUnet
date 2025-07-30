@@ -5,3 +5,9 @@ export interface Parcial {
   nota9: number
   total: number
 }
+
+export interface Note {
+  note: number
+  required: number
+  missingNote: number
+}

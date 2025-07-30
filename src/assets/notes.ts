@@ -1,5 +1,5 @@
 export const conversion: { nota9: number; nota100: number }[] = [
-  { nota9: 1.0, nota100: 0 },
+  { nota9: 1.0, nota100: 1 },
   { nota9: 1.1, nota100: 8 },
   { nota9: 1.2, nota100: 9 },
   { nota9: 1.3, nota100: 10 },
@@ -90,6 +90,33 @@ export const conversion: { nota9: number; nota100: number }[] = [
   { nota9: 9.0, nota100: 95 },
 ]
 
+export const notesRequired = [
+  {
+    note: 4,
+    required: 3.5,
+  },
+  {
+    note: 5,
+    required: 4.5,
+  },
+  {
+    note: 6,
+    required: 5.5,
+  },
+  {
+    note: 7,
+    required: 6.5,
+  },
+  {
+    note: 8,
+    required: 7.5,
+  },
+  {
+    note: 9,
+    required: 8.5,
+  },
+]
+
 export function convertirNota(nota: number, escala: '100' | '9'): number | null {
   const notaToSearch = nota
 
@@ -102,7 +129,7 @@ export function convertirNota(nota: number, escala: '100' | '9'): number | null 
   }
 
   if (escala === '100' && notaToSearch >= 95) return 9.0
-  if (escala === '100' && notaToSearch <= 7) return 0
+  if (escala === '100' && notaToSearch <= 7) return 1
 
   if (escala === '100') {
     const match = conversion.find((item) => item.nota100 === notaToSearch)
@@ -111,4 +138,8 @@ export function convertirNota(nota: number, escala: '100' | '9'): number | null 
     const match = conversion.find((item) => item.nota9 === notaToSearch)
     return match ? match.nota100 : null
   }
+}
+
+export const roundNote = (note: number) => {
+  return Math.round(note * 100) / 100
 }

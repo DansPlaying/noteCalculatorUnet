@@ -1,6 +1,7 @@
 <template>
   <button
     @click="toggleTheme"
+    id="theme-toggle"
     class="flex items-center gap-2 px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white text-black dark:bg-gray-800 dark:text-white transition"
   >
     <span>{{ isDark ? 'Modo Claro' : 'Modo Oscuro' }}</span>
