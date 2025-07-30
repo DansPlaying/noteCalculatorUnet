@@ -4,3 +4,7 @@
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
 @custom-variant dark (&:where(.dark, .dark *));
+
+#app {
+  height: 100%;
+}

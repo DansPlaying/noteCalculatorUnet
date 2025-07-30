@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ConverterStructure from '@/components/ConverterStructure.vue'
+import PointsRequired from '@/components/PointsRequired.vue'
 </script>
 
 <template>
@@ -12,5 +13,11 @@ import ConverterStructure from '@/components/ConverterStructure.vue'
       <ConverterStructure escalaOrigen="100" escalaDestino="9" />
       <ConverterStructure escalaOrigen="9" escalaDestino="100" />
     </div>
+
+    <div class="px-4 pt-4">
+      <PointsRequired />
+    </div>
+
+    <div class="h-full"></div>
   </main>
 </template>
