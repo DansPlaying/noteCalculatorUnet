@@ -39,8 +39,14 @@
             >
               {{ rowIndex - 1 }}
             </td>
-            <td v-for="colIndex in 9" :key="colIndex" class="px-2 py-1 text-center">
+            <td v-for="colIndex in 9" :key="colIndex" class="px-2 py-1 text-center group relative">
               {{ getRange(colIndex, rowIndex - 1) }}
+              <div
+                v-if="!(colIndex === 9 && rowIndex > 1)"
+                class="absolute z-10 hidden group-hover:block px-2 py-1 text-xs text-white bg-gray-800 rounded shadow-lg top-full mt-1 left-1/2 -translate-x-1/2 whitespace-nowrap"
+              >
+                {{ `${colIndex}.` + `${rowIndex - 1}` }}
+              </div>
             </td>
           </tr>
         </tbody>
