@@ -3,62 +3,80 @@ import { RouterLink, RouterView } from 'vue-router'
 import { onMounted } from 'vue'
 import { initFlowbite } from 'flowbite'
 import ThemeToggle from './components/ThemeToggle.vue'
+
 onMounted(() => {
   initFlowbite()
 })
 </script>
 
 <template>
-  <div class="flex flex-col h-screen dark:bg-gray-600">
+  <div class="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
     <header
-      class="flex justify-between items-center p-4 bg-blue-700 shadow-md m-4 rounded-lg text-white dark:bg-gray-800"
+      class="flex justify-between items-center p-4 md:p-6 m-4 md:m-6
+             bg-gradient-to-r from-blue-600 to-blue-700
+             dark:from-gray-800 dark:to-gray-900
+             rounded-xl shadow-lg text-white"
+      role="banner"
     >
-      <nav class="flex gap-4">
+      <nav aria-label="Main navigation" class="flex items-center gap-6">
         <RouterLink
           to="/"
-          class="hover:text-blue-200 dark:hover:text-blue-400 transition-colors"
-          exact-active-class="font-bold underline underline-offset-4"
-          >Calculadora</RouterLink
+          class="flex items-center gap-2 text-white/90 hover:text-white transition-all duration-200 font-medium"
+          exact-active-class="!text-white font-semibold"
         >
+          <font-awesome-icon icon="calculator" class="text-sm" />
+          <span>Calculadora</span>
+        </RouterLink>
+
         <RouterLink
           to="/about"
-          class="hover:text-blue-200 dark:hover:text-blue-400 transition-colors"
-          exact-active-class="font-bold underline underline-offset-4"
-          >Sobre el App</RouterLink
+          class="flex items-center gap-2 text-white/90 hover:text-white transition-all duration-200 font-medium"
+          exact-active-class="!text-white font-semibold"
         >
+          <font-awesome-icon icon="info-circle" class="text-sm" />
+          <span>Sobre el App</span>
+        </RouterLink>
       </nav>
 
       <ThemeToggle />
     </header>
 
-    <div class="flex-1 overflow-auto">
+    <main class="flex-1 overflow-auto">
       <RouterView />
-    </div>
+    </main>
 
-    <footer class="bg-blue-700 shadow-md m-4 rounded-lg dark:bg-gray-800 text-md flex justify-center">
-      <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-        <span class="text-white sm:text-center"
-          >© {{ new Date().getFullYear() }}
-          <a class="hover:underline">Calculadora Notas UNET™</a>. All Rights Reserved.
+    <footer
+      class="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-gray-800 dark:to-gray-900
+             shadow-lg m-4 md:m-6 rounded-xl"
+      role="contentinfo"
+    >
+      <div class="w-full mx-auto max-w-screen-xl p-4 md:p-6 md:flex md:items-center md:justify-between">
+        <span class="text-sm text-white/90">
+          © {{ new Date().getFullYear() }}
+          <span class="font-medium">Calculadora Notas UNET</span>. Todos los derechos reservados.
         </span>
-        <ul class="flex flex-wrap items-center mt-3 font-medium text-white sm:mt-0 pt-4 md:pt-0">
+        <ul class="flex flex-wrap items-center gap-6 mt-4 md:mt-0 text-sm">
           <li>
             <a
               target="_blank"
-              rel="noreferer noopener"
+              rel="noopener noreferrer"
               href="https://www.linkedin.com/in/danielurbina007"
-              class="hover:underline me-4 md:me-6"
-              >LinkedIn</a
+              class="text-white/90 hover:text-white hover:underline transition-colors duration-200 flex items-center gap-2"
             >
+              <font-awesome-icon :icon="['fab', 'linkedin']" />
+              LinkedIn
+            </a>
           </li>
-          <li class="px-4">
+          <li>
             <a
               target="_blank"
-              rel="noreferer noopener"
+              rel="noopener noreferrer"
               href="https://github.com/DansPlaying/noteCalculatorUnet"
-              class="hover:underline me-4 md:me-6"
-              >GitHub</a
+              class="text-white/90 hover:text-white hover:underline transition-colors duration-200 flex items-center gap-2"
             >
+              <font-awesome-icon :icon="['fab', 'github']" />
+              GitHub
+            </a>
           </li>
         </ul>
       </div>

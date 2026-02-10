@@ -4,19 +4,26 @@ import PointsRequired from '@/components/PointsRequired.vue'
 </script>
 
 <template>
-  <main class="bg-white shadow-md m-4 rounded-lg dark:bg-gray-700 py-4">
-    <h2 class="dark:text-white text-center font-bold text-xl md:text-2xl">
-      CALCULADORA NOTAS UNET
-    </h2>
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-6">
+    <!-- Page Title -->
+    <div class="text-center mb-8">
+      <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        Calculadora de Notas UNET
+      </h1>
+      <p class="text-gray-600 dark:text-gray-400">
+        Convierte y calcula tus notas de manera fácil y rápida
+      </p>
+    </div>
 
-    <div class="flex flex-col md:flex-row justify-center w-full gap-4 px-4 pt-4">
+    <!-- Converter Cards -->
+    <div class="flex flex-col md:flex-row gap-4 md:gap-6 mb-6">
       <ConverterStructure escalaOrigen="100" escalaDestino="9" />
       <ConverterStructure escalaOrigen="9" escalaDestino="100" />
     </div>
 
-    <div class="px-4 pt-4">
+    <!-- Points Required Calculator -->
+    <div class="mt-6">
       <PointsRequired />
     </div>
-
-  </main>
+  </div>
 </template>

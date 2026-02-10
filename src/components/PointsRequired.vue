@@ -1,109 +1,189 @@
 <template>
   <div
-    class="flex-1 p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+    class="p-6 bg-white border border-gray-200 rounded-xl shadow-sm
+           hover:shadow-md transition-shadow duration-300
+           dark:bg-gray-800 dark:border-gray-700"
   >
-    <div class="flex justify-center items-center">
-      <h5 class="text-center dark:text-white pr-4">¿CUANTO ME FALTA?</h5>
-      <select
-        id="notes"
-        v-model="notesCount"
-        @change="ajustarParciales"
-        class="bg-gray-50 border w-[120px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      >
-        <option value="2">2 parciales</option>
-        <option value="3">3 parciales</option>
-        <option value="4">4 parciales</option>
-      </select>
+    <!-- Header with Dropdown -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+        ¿Cuánto me falta?
+      </h3>
+
+      <div class="flex items-center gap-3">
+        <label for="notes" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+          Parciales:
+        </label>
+        <select
+          id="notes"
+          v-model="notesCount"
+          @change="ajustarParciales"
+          class="px-4 py-2 text-sm bg-white dark:bg-gray-700
+                 border border-gray-300 dark:border-gray-600
+                 rounded-lg text-gray-900 dark:text-white
+                 focus:outline-none focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900/30
+                 focus:border-blue-500 transition-all duration-200"
+        >
+          <option value="2">2 parciales</option>
+          <option value="3">3 parciales</option>
+          <option value="4">4 parciales</option>
+        </select>
+      </div>
     </div>
 
-    <div class="sm:rounded-lg pt-4 flex md:justify-center overflow-auto">
+    <!-- Table -->
+    <div class="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
       <table
-        class="w-full max-w-[800px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+        class="w-full min-w-[600px] text-sm text-left text-gray-500 dark:text-gray-400"
+        aria-label="Tabla de parciales"
       >
         <thead
-          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+          class="bg-gray-100 dark:bg-gray-700 text-xs font-medium uppercase tracking-wide
+                 text-gray-700 dark:text-gray-300 border-b border-gray-200 dark:border-gray-600"
         >
           <tr>
-            <th scope="col" class="px-6 py-3">Parcial</th>
-            <th scope="col" class="px-6 py-3">Porcentaje</th>
-            <th scope="col" class="px-6 py-3 min-w-[100px]">1-100</th>
-            <th scope="col" class="px-6 py-3 min-w-[74px]">1-9</th>
-            <th scope="col" class="px-6 py-3">Nota parcial</th>
+            <th scope="col" class="px-4 py-3">Parcial</th>
+            <th scope="col" class="px-4 py-3">Porcentaje</th>
+            <th scope="col" class="px-4 py-3 min-w-[100px]">Nota (1-100)</th>
+            <th scope="col" class="px-4 py-3 min-w-[80px]">Nota (1-9)</th>
+            <th scope="col" class="px-4 py-3">Total</th>
           </tr>
         </thead>
         <tbody>
           <tr
             v-for="(parcial, index) in parciales"
             :key="index"
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+            class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700
+                   hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-150"
           >
-            <td class="px-4 py-2">{{ parcial.nombre }}</td>
-            <td class="px-4 py-2">
+            <th
+              scope="row"
+              class="px-4 py-3 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+            >
+              {{ parcial.nombre }}
+            </th>
+            <td class="px-4 py-3">
               <input
                 :id="'percent' + index"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="number"
                 min="0"
                 max="100"
                 v-model.number="parcial.porcentaje"
                 @input="calcularTotal"
+                class="w-full px-3 py-2 text-sm bg-white dark:bg-gray-700
+                       border border-gray-300 dark:border-gray-600
+                       rounded-lg text-gray-900 dark:text-white
+                       focus:outline-none focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900/30
+                       focus:border-blue-500 transition-all duration-200"
+                :aria-label="`Porcentaje ${parcial.nombre}`"
+                placeholder="%"
               />
             </td>
-            <td class="px-4 py-2">
+            <td class="px-4 py-3">
               <input
                 :id="'note' + index"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="number"
                 min="0"
                 max="100"
                 v-model.number="parcial.nota100"
                 @input="calcularTotal"
+                class="w-full px-3 py-2 text-sm bg-white dark:bg-gray-700
+                       border border-gray-300 dark:border-gray-600
+                       rounded-lg text-gray-900 dark:text-white
+                       focus:outline-none focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900/30
+                       focus:border-blue-500 transition-all duration-200"
+                :aria-label="`Nota ${parcial.nombre}`"
+                placeholder="0-100"
               />
             </td>
-            <td class="px-4 py-2">
-              <p class="text-center">{{ parcial.nota9 }}</p>
+            <td class="px-4 py-3 text-center font-medium text-gray-700 dark:text-gray-300">
+              {{ parcial.nota9 || '-' }}
             </td>
-            <td>
-              <p class="text-center">{{ parcial.total.toFixed(2) }}</p>
+            <td class="px-4 py-3 text-center font-semibold text-gray-900 dark:text-white">
+              {{ parcial.total ? parcial.total.toFixed(2) : '-' }}
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <p v-if="percentageWarning" class="text-red-500 dark:text-red-400 pt-4 text-center font-medium">
-      El porcentaje total excede 100% ({{ percentage }}%)
-    </p>
-
-    <h3 v-if="totalNota9 && !percentageWarning" class="dark:text-white font-bold text-xl pt-4 text-center pr-2">
-      Nota acumulada: {{ totalNota9.toFixed(2) }} puntos
-    </h3>
-
-    <div
-      id="totalRequired"
-      v-if="totalRequired.length > 0"
-      class="flex flex-wrap gap-2 justify-evenly sm:justify-start pt-4"
-    >
+    <!-- Percentage Warning -->
+    <Transition name="shake">
       <div
-        v-for="(elem, index) in totalRequired"
-        :key="index"
-        class="w-[140px] md:w-[160px] p-2 h-[66px] bg-gray-50 dark:text-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-gray-600"
+        v-if="percentageWarning"
+        role="alert"
+        class="mb-4 p-4 bg-amber-50 dark:bg-amber-900/20
+               border border-amber-300 dark:border-amber-700 rounded-lg"
       >
-        <div v-if="elem.required != 0 || elem.missingNote <= 1">
-          <h6>Para obtener {{ elem.note }}</h6>
-          <p class="text-green-600 dark:text-green-400">
-            {{
-              elem.required > 0
-                ? `requiere ${elem.required} ${elem.required == 1 ? 'pt' : 'pts'}.`
-                : 'ya tiene la nota.'
-            }}
+        <div class="flex items-center gap-3">
+          <font-awesome-icon
+            icon="exclamation-triangle"
+            class="text-amber-600 dark:text-amber-400"
+          />
+          <p class="text-sm font-medium text-amber-800 dark:text-amber-300">
+            El porcentaje total excede 100% ({{ percentage }}%)
           </p>
         </div>
-        <div v-else>
-          <p class="text-red-600 dark:text-red-400">Fuera de rango para obtener {{ elem.note }}</p>
+      </div>
+    </Transition>
+
+    <!-- Accumulated Grade -->
+    <Transition name="result">
+      <div
+        v-if="totalNota9 && !percentageWarning"
+        role="status"
+        aria-live="polite"
+        class="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20
+               rounded-lg border border-blue-200 dark:border-blue-800"
+      >
+        <div class="flex items-center gap-3">
+          <font-awesome-icon icon="check-circle" class="text-xl text-blue-600 dark:text-blue-400" />
+          <p class="text-lg font-semibold text-gray-900 dark:text-white">
+            Nota acumulada:
+            <span class="text-blue-600 dark:text-blue-400">{{ totalNota9.toFixed(2) }}</span>
+            puntos
+          </p>
         </div>
       </div>
-    </div>
+    </Transition>
+
+    <!-- Results Grid -->
+    <Transition name="fade">
+      <div
+        v-if="totalRequired.length > 0"
+        id="totalRequired"
+        class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"
+      >
+        <div
+          v-for="(elem, index) in totalRequired"
+          :key="index"
+          class="p-3 rounded-lg border transition-all duration-200"
+          :class="getResultCardClass(elem)"
+        >
+          <div v-if="elem.required != 0 || elem.missingNote <= 1">
+            <p class="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
+              Para obtener {{ elem.note }}
+            </p>
+            <p
+              class="text-sm font-bold"
+              :class="
+                elem.required > 0
+                  ? 'text-blue-600 dark:text-blue-400'
+                  : 'text-green-600 dark:text-green-400'
+              "
+            >
+              {{ elem.required > 0 ? `Requiere ${elem.required} pts` : 'Ya la tienes' }}
+            </p>
+          </div>
+          <div v-else>
+            <p class="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
+              Para {{ elem.note }}
+            </p>
+            <p class="text-sm font-bold text-red-600 dark:text-red-400">Fuera de rango</p>
+          </div>
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -190,4 +270,60 @@ const calcularTotal = () => {
     totalRequired.value = []
   }
 }
+
+const getResultCardClass = (elem: Note) => {
+  if (elem.missingNote > 1) {
+    return 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+  }
+  if (elem.required <= 0) {
+    return 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+  }
+  return 'bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600'
+}
 </script>
+
+<style scoped>
+/* Result Transition */
+.result-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.result-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* Fade Transition */
+.fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.fade-enter-from {
+  opacity: 0;
+}
+
+/* Shake Transition */
+.shake-enter-active {
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-4px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(4px);
+  }
+}
+</style>
