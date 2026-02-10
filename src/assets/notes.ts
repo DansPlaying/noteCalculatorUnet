@@ -121,7 +121,7 @@ export function convertirNota(nota: number, escala: '100' | '9'): number | null 
   if (
     nota < 0 ||
     (escala === '100' && nota > 100) ||
-    (escala === '9' && nota > 9)
+    (escala === '9' && (nota > 9 || nota < 1))
   ) {
     return null
   }
@@ -134,7 +134,8 @@ export function convertirNota(nota: number, escala: '100' | '9'): number | null 
     const match = conversion.find((item) => item.nota100 === notaRedondeada)
     return match ? match.nota9 : null
   } else {
-    const match = conversion.find((item) => item.nota9 === nota)
+    const notaRedondeada = Math.round(nota * 10) / 10
+    const match = conversion.find((item) => item.nota9 === notaRedondeada)
     return match ? match.nota100 : null
   }
 }

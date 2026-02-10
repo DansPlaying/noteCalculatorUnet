@@ -9,5 +9,8 @@ export interface Parcial {
 export interface Note {
   note: number
   required: number
+  required9: number
   missingNote: number
+  hasReached: boolean
+  outOfRange: boolean
 }
