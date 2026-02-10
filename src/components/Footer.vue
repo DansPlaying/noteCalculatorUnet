@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import { useI18n } from '@/i18n'
+
+const { t } = useI18n()
+</script>
+
 <template>
   <footer class="mx-auto w-full max-w-6xl px-4 pb-10" role="contentinfo">
     <div
@@ -6,8 +12,8 @@
       <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <span class="text-sm text-slate-600 dark:text-slate-300">
           © {{ new Date().getFullYear() }}
-          <span class="font-semibold text-slate-900 dark:text-white"> Calculadora Notas UNET </span>
-          . Todos los derechos reservados.
+          <span class="font-semibold text-slate-900 dark:text-white"> {{ t.header.title }} UNET </span>
+          . {{ t.footer.rights }}
         </span>
         <ul class="flex flex-wrap items-center gap-6 text-sm">
           <li>

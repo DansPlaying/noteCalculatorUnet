@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import ThemeToggle from './ThemeToggle.vue'
+import LanguageSelector from './LanguageSelector.vue'
+import { useI18n } from '@/i18n'
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -9,43 +13,40 @@ import ThemeToggle from './ThemeToggle.vue'
     >
       <div class="flex gap-4 sm:items-center justify-between">
         <div class="flex items-center gap-3">
-          <div
-            class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-sky-400 text-white shadow-md"
-          >
-            <font-awesome-icon icon="calculator" class="text-base" />
-          </div>
+          <img src="/logo.svg" alt="Logo" class="h-11 w-11 rounded-2xl shadow-md" />
           <div>
             <h1 class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400 m-0!">
               UNET
             </h1>
             <p class="font-display text-lg font-semibold text-slate-900 dark:text-white m-0!">
-              Calculadora de Notas
+              {{ t.header.title }}
             </p>
           </div>
         </div>
 
-        <div class="flex items-center justify-between sm:justify-end gap-3">
+        <div class="flex items-center justify-between sm:justify-end gap-2 sm:gap-3">
+          <LanguageSelector />
           <ThemeToggle />
         </div>
       </div>
 
-      <nav aria-label="Main navigation" class="flex flex-wrap items-center gap-4 sm:gap-8">
+      <nav aria-label="Main navigation" class="flex flex-wrap items-center gap-2 sm:gap-3">
         <RouterLink
           to="/"
-          class="flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-300 transition-all duration-200 hover:text-slate-900 dark:hover:text-white"
-          exact-active-class="!text-slate-900 dark:!text-white font-semibold"
+          class="nav-link flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 transition-all duration-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-blue-400"
+          exact-active-class="!bg-blue-50 dark:!bg-blue-900/30 !text-blue-600 dark:!text-blue-400 !font-semibold"
         >
           <font-awesome-icon icon="calculator" class="text-sm" />
-          <span>Calculadora</span>
+          <span>{{ t.header.calculator }}</span>
         </RouterLink>
 
         <RouterLink
           to="/about"
-          class="flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-300 transition-all duration-200 hover:text-slate-900 dark:hover:text-white"
-          exact-active-class="!text-slate-900 dark:!text-white font-semibold"
+          class="nav-link flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 transition-all duration-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-blue-400"
+          exact-active-class="!bg-blue-50 dark:!bg-blue-900/30 !text-blue-600 dark:!text-blue-400 !font-semibold"
         >
           <font-awesome-icon icon="info-circle" class="text-sm" />
-          <span>Sobre el App</span>
+          <span>{{ t.header.about }}</span>
         </RouterLink>
       </nav>
     </div>

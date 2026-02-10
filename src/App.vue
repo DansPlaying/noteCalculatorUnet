@@ -1,10 +1,22 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 import { initFlowbite } from 'flowbite'
 import ThemeToggle from './components/ThemeToggle.vue'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
+import { useI18n } from '@/i18n'
+
+const { t, locale } = useI18n()
+
+// Update document title when language changes
+watch(
+  locale,
+  () => {
+    document.title = `${t.value.header.title} UNET`
+  },
+  { immediate: true },
+)
 
 onMounted(() => {
   initFlowbite()

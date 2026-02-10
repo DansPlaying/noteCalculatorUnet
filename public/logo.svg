@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <!-- Main gradient -->
+    <linearGradient id="mainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6"/>
+      <stop offset="50%" style="stop-color:#0EA5E9"/>
+      <stop offset="100%" style="stop-color:#06B6D4"/>
+    </linearGradient>
+
+    <!-- Subtle shine gradient -->
+    <linearGradient id="shineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3"/>
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0.1"/>
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0"/>
+    </linearGradient>
+
+    <!-- Shadow filter -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#0369a1" flood-opacity="0.35"/>
+    </filter>
+
+    <!-- Inner glow -->
+    <filter id="innerGlow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect x="32" y="32" width="448" height="448" rx="96" ry="96" fill="url(#mainGrad)" filter="url(#shadow)"/>
+
+  <!-- Shine overlay -->
+  <rect x="32" y="32" width="448" height="224" rx="96" ry="96" fill="url(#shineGrad)"/>
+
+  <!-- Calculator body -->
+  <rect x="112" y="96" width="288" height="320" rx="32" ry="32" fill="white" opacity="0.95"/>
+
+  <!-- Calculator screen -->
+  <rect x="136" y="120" width="240" height="80" rx="16" ry="16" fill="#1e293b"/>
+
+  <!-- Grade display "9.0" on screen -->
+  <text x="256" y="178" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="700" fill="#22d3ee" text-anchor="middle">9.0</text>
+
+  <!-- Calculator buttons grid -->
+  <!-- Row 1 -->
+  <rect x="136" y="220" width="52" height="44" rx="10" fill="#f1f5f9"/>
+  <rect x="198" y="220" width="52" height="44" rx="10" fill="#f1f5f9"/>
+  <rect x="260" y="220" width="52" height="44" rx="10" fill="#f1f5f9"/>
+  <rect x="322" y="220" width="54" height="44" rx="10" fill="#fbbf24"/>
+
+  <!-- Row 2 -->
+  <rect x="136" y="274" width="52" height="44" rx="10" fill="#f1f5f9"/>
+  <rect x="198" y="274" width="52" height="44" rx="10" fill="#f1f5f9"/>
+  <rect x="260" y="274" width="52" height="44" rx="10" fill="#f1f5f9"/>
+  <rect x="322" y="274" width="54" height="44" rx="10" fill="#3b82f6"/>
+
+  <!-- Row 3 -->
+  <rect x="136" y="328" width="52" height="44" rx="10" fill="#f1f5f9"/>
+  <rect x="198" y="328" width="52" height="44" rx="10" fill="#f1f5f9"/>
+  <rect x="260" y="328" width="52" height="44" rx="10" fill="#f1f5f9"/>
+  <rect x="322" y="328" width="54" height="44" rx="10" fill="#3b82f6"/>
+
+  <!-- Button numbers -->
+  <text x="162" y="250" font-family="system-ui, sans-serif" font-size="20" font-weight="600" fill="#475569" text-anchor="middle">7</text>
+  <text x="224" y="250" font-family="system-ui, sans-serif" font-size="20" font-weight="600" fill="#475569" text-anchor="middle">8</text>
+  <text x="286" y="250" font-family="system-ui, sans-serif" font-size="20" font-weight="600" fill="#475569" text-anchor="middle">9</text>
+  <text x="349" y="250" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#92400e" text-anchor="middle">%</text>
+
+  <text x="162" y="304" font-family="system-ui, sans-serif" font-size="20" font-weight="600" fill="#475569" text-anchor="middle">4</text>
+  <text x="224" y="304" font-family="system-ui, sans-serif" font-size="20" font-weight="600" fill="#475569" text-anchor="middle">5</text>
+  <text x="286" y="304" font-family="system-ui, sans-serif" font-size="20" font-weight="600" fill="#475569" text-anchor="middle">6</text>
+  <text x="349" y="304" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="white" text-anchor="middle">+</text>
+
+  <text x="162" y="358" font-family="system-ui, sans-serif" font-size="20" font-weight="600" fill="#475569" text-anchor="middle">1</text>
+  <text x="224" y="358" font-family="system-ui, sans-serif" font-size="20" font-weight="600" fill="#475569" text-anchor="middle">2</text>
+  <text x="286" y="358" font-family="system-ui, sans-serif" font-size="20" font-weight="600" fill="#475569" text-anchor="middle">3</text>
+  <text x="349" y="358" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="white" text-anchor="middle">=</text>
+
+  <!-- Graduation cap accent (top right) -->
+  <g transform="translate(340, 56)">
+    <polygon points="50,20 90,40 50,60 10,40" fill="white" opacity="0.9"/>
+    <rect x="46" y="40" width="8" height="25" fill="white" opacity="0.9"/>
+    <circle cx="50" cy="68" r="6" fill="#fbbf24"/>
+    <line x1="50" y1="68" x2="50" y2="85" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="50" cy="88" r="4" fill="#fbbf24"/>
+  </g>
+
+  <!-- Subtle check mark (success indicator) -->
+  <circle cx="400" cy="384" r="28" fill="#22c55e"/>
+  <polyline points="386,384 396,394 414,374" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

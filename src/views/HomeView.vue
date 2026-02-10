@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import ConverterStructure from '@/components/ConverterStructure.vue'
 import PointsRequired from '@/components/PointsRequired.vue'
+import { useI18n } from '@/i18n'
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -12,16 +15,15 @@ import PointsRequired from '@/components/PointsRequired.vue'
         <span
           class="inline-flex items-center gap-2 rounded-full bg-blue-100/80 text-blue-700 dark:bg-blue-900/40 dark:text-blue-200 px-3 py-1 text-xs font-semibold uppercase tracking-widest"
         >
-          Herramienta oficial UNET
+          {{ t.home.badge }}
         </span>
         <h1
           class="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white mt-6"
         >
-          Calcula, convierte y proyecta tus notas con claridad total.
+          {{ t.home.title }}
         </h1>
         <p class="text-base md:text-lg text-slate-600 dark:text-slate-300 mt-5 leading-relaxed">
-          Diseñada para ayudarte a planificar tu rendimiento académico en segundos, con
-          equivalencias oficiales y resultados explicados.
+          {{ t.home.subtitle }}
         </p>
 
         <div class="mt-9 grid grid-cols-3 gap-3 sm:gap-4">
@@ -29,7 +31,7 @@ import PointsRequired from '@/components/PointsRequired.vue'
             class="rounded-2xl border border-slate-200/70 dark:border-slate-700/70 bg-white/90 dark:bg-slate-800/60 px-3 py-4 sm:px-6 sm:py-5 shadow-sm"
           >
             <p class="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-slate-500 dark:text-slate-400">
-              Escala
+              {{ t.home.scale }}
             </p>
             <p class="font-display text-base sm:text-lg font-semibold text-slate-900 dark:text-white mt-1">
               1 - 100
@@ -39,7 +41,7 @@ import PointsRequired from '@/components/PointsRequired.vue'
             class="rounded-2xl border border-slate-200/70 dark:border-slate-700/70 bg-white/90 dark:bg-slate-800/60 px-3 py-4 sm:px-6 sm:py-5 shadow-sm"
           >
             <p class="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-slate-500 dark:text-slate-400">
-              Conversión
+              {{ t.home.conversion }}
             </p>
             <p class="font-display text-base sm:text-lg font-semibold text-slate-900 dark:text-white mt-1">
               1 - 9
@@ -49,10 +51,10 @@ import PointsRequired from '@/components/PointsRequired.vue'
             class="rounded-2xl border border-slate-200/70 dark:border-slate-700/70 bg-white/90 dark:bg-slate-800/60 px-3 py-4 sm:px-6 sm:py-5 shadow-sm"
           >
             <p class="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-slate-500 dark:text-slate-400">
-              Tabla
+              {{ t.home.table }}
             </p>
             <p class="font-display text-base sm:text-lg font-semibold text-slate-900 dark:text-white mt-1">
-              Oficial
+              {{ t.home.official }}
             </p>
           </div>
         </div>
@@ -62,9 +64,9 @@ import PointsRequired from '@/components/PointsRequired.vue'
       <div
         class="rounded-3xl border border-white/60 dark:border-slate-700/70 bg-gradient-to-br from-gray-100 via-slate-50 to-white/35 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 px-5 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12 dark:text-white shadow-xl"
       >
-        <h2 class="font-display text-xl md:text-2xl font-semibold">Guía rápida</h2>
+        <h2 class="font-display text-xl md:text-2xl font-semibold">{{ t.home.quickGuide }}</h2>
         <p class="dark:text-slate-200 mt-4 leading-relaxed">
-          Completa tu progreso y descubre exactamente qué necesitas para tu meta.
+          {{ t.home.quickGuideSubtitle }}
         </p>
         <div class="mt-8 space-y-6">
           <div class="flex items-start gap-3">
@@ -73,7 +75,7 @@ import PointsRequired from '@/components/PointsRequired.vue'
               >1</span
             >
             <p class="text-sm dark:text-slate-100 leading-relaxed">
-              Convierte tus notas entre escalas con resultados al instante.
+              {{ t.home.step1 }}
             </p>
           </div>
           <div class="flex items-start gap-3">
@@ -82,7 +84,7 @@ import PointsRequired from '@/components/PointsRequired.vue'
               >2</span
             >
             <p class="text-sm dark:text-slate-100 leading-relaxed">
-              Ingresa porcentaje y nota de cada parcial para calcular el acumulado.
+              {{ t.home.step2 }}
             </p>
           </div>
           <div class="flex items-start gap-3">
@@ -91,7 +93,7 @@ import PointsRequired from '@/components/PointsRequired.vue'
               >3</span
             >
             <p class="text-sm dark:text-slate-100 leading-relaxed">
-              Revisa lo que te falta para alcanzar cada objetivo de nota final.
+              {{ t.home.step3 }}
             </p>
           </div>
         </div>
@@ -101,9 +103,9 @@ import PointsRequired from '@/components/PointsRequired.vue'
     <section class="section-spacing">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-7">
         <h2 class="font-display text-xl sm:text-2xl font-semibold text-slate-900 dark:text-white">
-          Conversión instantánea
+          {{ t.home.instantConversion }}
         </h2>
-        <p class="text-sm text-slate-500 dark:text-slate-400">Resultados inmediatos y precisos</p>
+        <p class="text-sm text-slate-500 dark:text-slate-400">{{ t.home.instantConversionSubtitle }}</p>
       </div>
       <div class="flex flex-col md:flex-row gap-6 md:gap-8 mb-12">
         <ConverterStructure escalaOrigen="100" escalaDestino="9" />
@@ -114,9 +116,9 @@ import PointsRequired from '@/components/PointsRequired.vue'
     <section class="section-spacing">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-7">
         <h2 class="font-display text-xl sm:text-2xl font-semibold text-slate-900 dark:text-white">
-          Proyección de parciales
+          {{ t.home.gradeProjection }}
         </h2>
-        <p class="text-sm text-slate-500 dark:text-slate-400">Calcula qué necesitas para tu meta</p>
+        <p class="text-sm text-slate-500 dark:text-slate-400">{{ t.home.gradeProjectionSubtitle }}</p>
       </div>
       <PointsRequired />
     </section>

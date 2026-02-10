@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { conversion } from '@/assets/notes'
+import { useI18n } from '@/i18n'
+
+const { t } = useI18n()
 
 const activeTooltip = ref<string | null>(null)
 
@@ -55,32 +58,24 @@ function getGradeColorClass(column: number, row: number): string {
       class="rounded-3xl border border-white/70 dark:border-slate-700/70 bg-white/80 dark:bg-slate-900/70 backdrop-blur-xl shadow-xl px-5 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12"
     >
       <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-        Contexto UNET
+        {{ t.about.context }}
       </p>
       <h1 class="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white mt-3">
-        Sobre la Aplicación
+        {{ t.about.title }}
       </h1>
 
       <div class="mt-5 space-y-5 text-slate-600 dark:text-slate-300 leading-relaxed">
         <p>
-          Esta aplicación ha sido desarrollada para facilitar el cálculo y seguimiento de las
-          calificaciones en el sistema de evaluación de la
-          <strong class="text-slate-900 dark:text-white"
-            >Universidad Nacional Experimental del Táchira (UNET)</strong
-          >.
+          {{ t.about.p1 }}
+          <strong class="text-slate-900 dark:text-white">{{ t.about.university }}</strong>.
         </p>
         <p>
-          En la UNET, las evaluaciones parciales se califican en una escala de
-          <strong class="text-slate-900 dark:text-white">1 a 100 puntos</strong>. Sin embargo, al
-          final del período académico, las notas finales deben ser convertidas a una escala de
-          <strong class="text-slate-900 dark:text-white">1 a 9 puntos</strong>, siguiendo una tabla
-          oficial de equivalencias.
+          {{ t.about.p2Start }}
+          <strong class="text-slate-900 dark:text-white">{{ t.about.scale100 }}</strong>{{ t.about.p2Mid }}
+          <strong class="text-slate-900 dark:text-white">{{ t.about.scale9 }}</strong>{{ t.about.p2End }}
         </p>
         <p>
-          La aplicación permite al estudiante ingresar sus calificaciones parciales y los
-          porcentajes correspondientes para calcular su nota acumulada. Además, muestra cuánto le
-          falta para alcanzar una nota específica, y realiza automáticamente la conversión de las
-          notas al sistema de 9 puntos.
+          {{ t.about.p3 }}
         </p>
       </div>
     </section>
@@ -88,11 +83,11 @@ function getGradeColorClass(column: number, row: number): string {
     <section class="pt-12 pb-2">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
         <h2 class="font-display text-xl sm:text-2xl font-semibold text-slate-900 dark:text-white">
-          Tabla de Conversión Oficial
+          {{ t.about.tableTitle }}
         </h2>
         <p class="text-sm text-slate-500 dark:text-slate-400">
-          <span class="hidden sm:inline">Pasa el cursor sobre las celdas para ver la nota exacta</span>
-          <span class="sm:hidden">Toca una celda para ver la nota exacta</span>
+          <span class="hidden sm:inline">{{ t.about.tableHintDesktop }}</span>
+          <span class="sm:hidden">{{ t.about.tableHintMobile }}</span>
         </p>
       </div>
 
@@ -151,7 +146,7 @@ function getGradeColorClass(column: number, row: number): string {
                     class="absolute z-20 px-3 py-1.5 text-xs font-medium text-white bg-slate-900 dark:bg-slate-600 rounded-lg shadow-lg bottom-full mb-1 left-1/2 -translate-x-1/2 whitespace-nowrap transition-opacity duration-150"
                     :class="isTooltipActive(colIndex, rowIndex - 1) ? 'block' : 'hidden group-hover:block'"
                   >
-                    Nota exacta: {{ colIndex }}.{{ rowIndex - 1 }}
+                    {{ t.about.exactGrade }} {{ colIndex }}.{{ rowIndex - 1 }}
                     <div
                       class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 dark:bg-slate-600 rotate-45"
                     ></div>
@@ -168,31 +163,31 @@ function getGradeColorClass(column: number, row: number): string {
           <span
             class="w-4 h-4 rounded bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700"
           ></span>
-          <span class="text-slate-600 dark:text-slate-400">Excelente (95-100)</span>
+          <span class="text-slate-600 dark:text-slate-400">{{ t.about.excellent }}</span>
         </div>
         <div class="flex items-center gap-2">
           <span
             class="w-4 h-4 rounded bg-blue-100 dark:bg-blue-900/30 border border-blue-300 dark:border-blue-700"
           ></span>
-          <span class="text-slate-600 dark:text-slate-400">Muy Bueno (8.x)</span>
+          <span class="text-slate-600 dark:text-slate-400">{{ t.about.veryGood }}</span>
         </div>
         <div class="flex items-center gap-2">
           <span
             class="w-4 h-4 rounded bg-indigo-100 dark:bg-indigo-900/30 border border-indigo-300 dark:border-indigo-700"
           ></span>
-          <span class="text-slate-600 dark:text-slate-400">Bueno (7.x)</span>
+          <span class="text-slate-600 dark:text-slate-400">{{ t.about.good }}</span>
         </div>
         <div class="flex items-center gap-2">
           <span
             class="w-4 h-4 rounded bg-amber-100 dark:bg-amber-900/30 border border-amber-300 dark:border-amber-700"
           ></span>
-          <span class="text-slate-600 dark:text-slate-400">Aprobado (45-72)</span>
+          <span class="text-slate-600 dark:text-slate-400">{{ t.about.passed }}</span>
         </div>
         <div class="flex items-center gap-2">
           <span
             class="w-4 h-4 rounded bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-700"
           ></span>
-          <span class="text-slate-600 dark:text-slate-400">Reprobado (&lt;45)</span>
+          <span class="text-slate-600 dark:text-slate-400">{{ t.about.failed }}</span>
         </div>
       </div>
     </section>

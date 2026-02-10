@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import { convertirNota } from '@/assets/notes'
+import { useI18n } from '@/i18n'
+
+const { t } = useI18n()
 
 const props = defineProps<{
   escalaOrigen: '100' | '9'
@@ -29,11 +32,22 @@ watch(nota, () => {
   }
 })
 
-const titulo = computed(() => `Escala ${props.escalaOrigen} a ${props.escalaDestino}`)
+const titulo = computed(() =>
+  t.value.converter.title.replace('{from}', props.escalaOrigen).replace('{to}', props.escalaDestino),
+)
 
-const descripcion = computed(
-  () =>
-    `Conversión de notas de la escala ${props.escalaOrigen} a la escala ${props.escalaDestino}.`,
+const descripcion = computed(() =>
+  t.value.converter.description
+    .replace('{from}', props.escalaOrigen)
+    .replace('{to}', props.escalaDestino),
+)
+
+const inputLabel = computed(() =>
+  t.value.converter.inputLabel.replace('{scale}', props.escalaOrigen),
+)
+
+const errorMessage = computed(() =>
+  props.escalaOrigen === '100' ? t.value.converter.error100 : t.value.converter.error9,
 )
 </script>
 
@@ -71,7 +85,7 @@ const descripcion = computed(
           :for="props.escalaOrigen"
           class="block mb-4 text-sm font-semibold text-slate-700 dark:text-slate-300"
         >
-          Ingresa la nota ({{ props.escalaOrigen }} puntos)
+          {{ inputLabel }}
         </label>
 
         <div class="flex flex-col sm:flex-row sm:items-center gap-4">
@@ -124,7 +138,7 @@ const descripcion = computed(
         </div>
 
         <p class="mt-4 text-xs text-slate-500 dark:text-slate-400">
-          Se redondea automáticamente a la equivalencia oficial más cercana.
+          {{ t.converter.note }}
         </p>
 
         <!-- Error Message -->
@@ -135,7 +149,7 @@ const descripcion = computed(
             role="alert"
             class="mt-4 text-sm font-semibold text-red-600 dark:text-red-400"
           >
-            La nota debe estar entre {{ props.escalaOrigen === '100' ? '0 y 100' : '1 y 9' }}.
+            {{ errorMessage }}
           </p>
         </Transition>
       </div>

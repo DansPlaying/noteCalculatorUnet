@@ -6,16 +6,16 @@
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
       <div>
         <h3 class="font-display text-xl font-semibold text-slate-900 dark:text-white">
-          ¿Cuánto me falta?
+          {{ t.points.title }}
         </h3>
         <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
-          Ingresa tus parciales y descubre la nota necesaria para cada objetivo.
+          {{ t.points.subtitle }}
         </p>
       </div>
 
       <div class="flex items-center gap-3">
         <label for="notes" class="text-sm font-medium text-slate-700 dark:text-slate-300">
-          Parciales:
+          {{ t.points.partials }}
         </label>
         <select
           id="notes"
@@ -23,16 +23,16 @@
           @change="ajustarParciales"
           class="px-4 py-2 text-sm bg-white/90 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-600 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900/30 focus:border-blue-500 transition-all duration-200"
         >
-          <option value="2">2 parciales</option>
-          <option value="3">3 parciales</option>
-          <option value="4">4 parciales</option>
+          <option value="2">{{ t.points.partialsOption.replace('{n}', '2') }}</option>
+          <option value="3">{{ t.points.partialsOption.replace('{n}', '3') }}</option>
+          <option value="4">{{ t.points.partialsOption.replace('{n}', '4') }}</option>
         </select>
         <button
           type="button"
           @click="resetParciales"
           class="px-4 py-2 text-sm font-semibold rounded-2xl border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-500 transition-colors duration-200"
         >
-          Limpiar
+          {{ t.points.clear }}
         </button>
       </div>
     </div>
@@ -43,18 +43,18 @@
           <div
             class="inline-flex items-center gap-2 rounded-full bg-slate-100/80 dark:bg-slate-800/60 px-3 py-1 text-xs font-semibold text-slate-600 dark:text-slate-300"
           >
-            Acumulado: {{ percentage.toFixed(1) }}%
+            {{ t.points.accumulated }} {{ percentage.toFixed(1) }}%
           </div>
           <div
             class="inline-flex items-center gap-2 rounded-full bg-blue-100/80 dark:bg-blue-900/30 px-3 py-1 text-xs font-semibold text-blue-700 dark:text-blue-200"
           >
-            Restante: {{ remainingPercentage.toFixed(1) }}%
+            {{ t.points.remaining }} {{ remainingPercentage.toFixed(1) }}%
           </div>
           <div
             v-if="percentageWarning"
             class="text-xs font-semibold text-amber-600 dark:text-amber-400"
           >
-            Ajusta porcentajes para continuar.
+            {{ t.points.adjustPercentage }}
           </div>
         </div>
 
@@ -81,11 +81,11 @@
             class="bg-slate-100/80 dark:bg-slate-800 text-xs font-semibold uppercase tracking-wide text-slate-700 dark:text-slate-300 border-b border-slate-200 dark:border-slate-600"
           >
             <tr>
-              <th scope="col" class="px-4 py-4">Parcial</th>
-              <th scope="col" class="px-4 py-4">Porcentaje</th>
-              <th scope="col" class="px-4 py-4 min-w-[100px]">Nota (1-100)</th>
-              <th scope="col" class="px-4 py-4 min-w-[80px]">Nota (1-9)</th>
-              <th scope="col" class="px-4 py-4">Total</th>
+              <th scope="col" class="px-4 py-4">{{ t.points.partial }}</th>
+              <th scope="col" class="px-4 py-4">{{ t.points.percentage }}</th>
+              <th scope="col" class="px-4 py-4 min-w-[100px]">{{ t.points.grade100 }}</th>
+              <th scope="col" class="px-4 py-4 min-w-[80px]">{{ t.points.grade9 }}</th>
+              <th scope="col" class="px-4 py-4">{{ t.points.total }}</th>
             </tr>
           </thead>
           <tbody>
@@ -153,7 +153,7 @@
             class="text-amber-600 dark:text-amber-400"
           />
           <p class="text-sm font-semibold text-amber-800 dark:text-amber-300">
-            El porcentaje total excede 100% ({{ totalPercentage.toFixed(1) }}%)
+            {{ t.points.percentageWarning.replace('{value}', totalPercentage.toFixed(1)) }}
           </p>
         </div>
       </div>
@@ -163,7 +163,7 @@
       v-if="!hasAnyInput"
       class="mb-6 rounded-2xl border border-dashed border-slate-300/80 dark:border-slate-600/80 bg-white/60 dark:bg-slate-900/40 p-6 text-sm text-slate-500 dark:text-slate-400"
     >
-      Agrega porcentajes y notas para ver el cálculo automático y lo que te falta.
+      {{ t.points.emptyState }}
     </div>
 
     <!-- Accumulated Grade -->
@@ -178,9 +178,9 @@
           <font-awesome-icon icon="check-circle" class="text-xl text-blue-600 dark:text-blue-400" />
 
           <p class="text-lg font-semibold text-slate-900 dark:text-white">
-            Nota acumulada:
+            {{ t.points.accumulatedGrade }}
             <span class="text-blue-600 dark:text-blue-400">{{ totalNota9.toFixed(2) }}</span>
-            puntos
+            {{ t.points.points }}
           </p>
         </div>
       </div>
@@ -201,13 +201,13 @@
         >
           <div v-if="elem.outOfRange">
             <p class="text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
-              Para {{ elem.note }}
+              {{ t.points.forGrade }} {{ elem.note }}
             </p>
-            <p class="text-sm font-bold text-red-600 dark:text-red-400">Fuera de rango</p>
+            <p class="text-sm font-bold text-red-600 dark:text-red-400">{{ t.points.outOfRange }}</p>
           </div>
           <div v-else>
             <p class="text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
-              Para obtener <span class="font-bold text-lg pl-1">{{ elem.note }}</span>
+              {{ t.points.forGrade }} <span class="font-bold text-lg pl-1">{{ elem.note }}</span>
             </p>
             <p
               class="text-sm font-bold"
@@ -225,7 +225,7 @@
             >
               <p>({{ elem.required9.toFixed(1) }} pts)</p>
               <p>
-                Aporta {{ elem.missingNote.toFixed(2) }} pts ({{ remainingPercentage.toFixed(1) }}%)
+                {{ t.points.contributes.replace('{value}', elem.missingNote.toFixed(2)).replace('{percentage}', remainingPercentage.toFixed(1)) }}
               </p>
             </div>
           </div>
@@ -236,9 +236,12 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed, ref } from 'vue'
+import { reactive, computed, ref, watch } from 'vue'
 import { convertirNota, notesRequired, roundNote } from '@/assets/notes'
 import type { Parcial, Note } from '@/utils/parcial'
+import { useI18n } from '@/i18n'
+
+const { t, locale } = useI18n()
 
 const notesCount = ref(2)
 const percentage = ref(0)
@@ -247,10 +250,14 @@ const percentageWarning = ref(false)
 const totalRequired = ref<Array<Note>>([])
 const parciales = reactive<Array<Parcial>>([])
 
+const getPartialName = (index: number) => {
+  return `${t.value.points.partial} ${index + 1}`
+}
+
 const generarParciales = (n: number) => {
   const count = Math.max(1, n - 1)
   return Array.from({ length: count }, (_, i) => ({
-    nombre: `Parcial ${i + 1}`,
+    nombre: getPartialName(i),
     porcentaje: 0,
     nota100: 0,
     nota9: 0,
@@ -259,6 +266,13 @@ const generarParciales = (n: number) => {
 }
 
 parciales.push(...generarParciales(notesCount.value))
+
+// Update partial names when language changes
+watch(locale, () => {
+  parciales.forEach((p, i) => {
+    p.nombre = getPartialName(i)
+  })
+})
 
 const ajustarParciales = () => {
   const nuevos = generarParciales(notesCount.value)
@@ -386,10 +400,10 @@ const getResultCardClass = (elem: Note) => {
 }
 
 const getRequiredLabel = (elem: Note) => {
-  if (elem.hasReached) return 'Ya la tienes'
-  if (elem.outOfRange) return 'Fuera de rango'
-  if (elem.required <= 0) return 'Requiere <1 pt'
-  return `Requiere ${elem.required} pts`
+  if (elem.hasReached) return t.value.points.alreadyReached
+  if (elem.outOfRange) return t.value.points.outOfRange
+  if (elem.required <= 0) return t.value.points.requiresLess
+  return t.value.points.requires.replace('{value}', String(elem.required))
 }
 </script>
 

@@ -1,0 +1,213 @@
+export const translations = {
+  es: {
+    // Header
+    header: {
+      title: 'Calculadora de Notas',
+      calculator: 'Calculadora',
+      about: 'Sobre el App',
+    },
+    // Theme
+    theme: {
+      light: 'Modo Claro',
+      dark: 'Modo Oscuro',
+      switchToLight: 'Cambiar a modo claro',
+      switchToDark: 'Cambiar a modo oscuro',
+    },
+    // Home page
+    home: {
+      badge: 'Herramienta oficial UNET',
+      title: 'Calcula, convierte y proyecta tus notas con claridad total.',
+      subtitle:
+        'Diseñada para ayudarte a planificar tu rendimiento académico en segundos, con equivalencias oficiales y resultados explicados.',
+      scale: 'Escala',
+      conversion: 'Conversión',
+      table: 'Tabla',
+      official: 'Oficial',
+      quickGuide: 'Guía rápida',
+      quickGuideSubtitle: 'Completa tu progreso y descubre exactamente qué necesitas para tu meta.',
+      step1: 'Convierte tus notas entre escalas con resultados al instante.',
+      step2: 'Ingresa porcentaje y nota de cada parcial para calcular el acumulado.',
+      step3: 'Revisa lo que te falta para alcanzar cada objetivo de nota final.',
+      instantConversion: 'Conversión instantánea',
+      instantConversionSubtitle: 'Resultados inmediatos y precisos',
+      gradeProjection: 'Proyección de parciales',
+      gradeProjectionSubtitle: 'Calcula qué necesitas para tu meta',
+    },
+    // Converter
+    converter: {
+      title: 'Escala {from} a {to}',
+      description: 'Conversión de notas de la escala {from} a la escala {to}.',
+      inputLabel: 'Ingresa la nota ({scale} puntos)',
+      placeholder100: '0-100',
+      placeholder9: '1-9',
+      result: '{value} pts',
+      note: 'Se redondea automáticamente a la equivalencia oficial más cercana.',
+      error100: 'La nota debe estar entre 0 y 100.',
+      error9: 'La nota debe estar entre 1 y 9.',
+    },
+    // Points Required
+    points: {
+      title: '¿Cuánto me falta?',
+      subtitle: 'Ingresa tus parciales y descubre la nota necesaria para cada objetivo.',
+      partials: 'Parciales:',
+      partialsOption: '{n} parciales',
+      clear: 'Limpiar',
+      accumulated: 'Acumulado:',
+      remaining: 'Restante:',
+      adjustPercentage: 'Ajusta porcentajes para continuar.',
+      partial: 'Parcial',
+      percentage: 'Porcentaje',
+      grade100: 'Nota (1-100)',
+      grade9: 'Nota (1-9)',
+      total: 'Total',
+      percentageWarning: 'El porcentaje total excede 100% ({value}%)',
+      emptyState: 'Agrega porcentajes y notas para ver el cálculo automático y lo que te falta.',
+      accumulatedGrade: 'Nota acumulada:',
+      points: 'puntos',
+      forGrade: 'Para obtener',
+      outOfRange: 'Fuera de rango',
+      alreadyReached: 'Ya la tienes',
+      requires: 'Requiere {value} pts',
+      requiresLess: 'Requiere <1 pt',
+      contributes: 'Aporta {value} pts ({percentage}%)',
+    },
+    // About page
+    about: {
+      context: 'Contexto UNET',
+      title: 'Sobre la Aplicación',
+      p1: 'Esta aplicación ha sido desarrollada para facilitar el cálculo y seguimiento de las calificaciones en el sistema de evaluación de la',
+      university: 'Universidad Nacional Experimental del Táchira (UNET)',
+      p2Start: 'En la UNET, las evaluaciones parciales se califican en una escala de',
+      scale100: '1 a 100 puntos',
+      p2Mid: '. Sin embargo, al final del período académico, las notas finales deben ser convertidas a una escala de',
+      scale9: '1 a 9 puntos',
+      p2End: ', siguiendo una tabla oficial de equivalencias.',
+      p3: 'La aplicación permite al estudiante ingresar sus calificaciones parciales y los porcentajes correspondientes para calcular su nota acumulada. Además, muestra cuánto le falta para alcanzar una nota específica, y realiza automáticamente la conversión de las notas al sistema de 9 puntos.',
+      tableTitle: 'Tabla de Conversión Oficial',
+      tableHintDesktop: 'Pasa el cursor sobre las celdas para ver la nota exacta',
+      tableHintMobile: 'Toca una celda para ver la nota exacta',
+      exactGrade: 'Nota exacta:',
+      excellent: 'Excelente (95-100)',
+      veryGood: 'Muy Bueno (8.x)',
+      good: 'Bueno (7.x)',
+      passed: 'Aprobado (45-72)',
+      failed: 'Reprobado (<45)',
+    },
+    // Footer
+    footer: {
+      rights: 'Todos los derechos reservados.',
+    },
+    // Language
+    language: {
+      es: 'ES',
+      en: 'EN',
+    },
+  },
+  en: {
+    // Header
+    header: {
+      title: 'Grade Calculator',
+      calculator: 'Calculator',
+      about: 'About',
+    },
+    // Theme
+    theme: {
+      light: 'Light Mode',
+      dark: 'Dark Mode',
+      switchToLight: 'Switch to light mode',
+      switchToDark: 'Switch to dark mode',
+    },
+    // Home page
+    home: {
+      badge: 'Official UNET Tool',
+      title: 'Calculate, convert and project your grades with total clarity.',
+      subtitle:
+        'Designed to help you plan your academic performance in seconds, with official equivalencies and explained results.',
+      scale: 'Scale',
+      conversion: 'Conversion',
+      table: 'Table',
+      official: 'Official',
+      quickGuide: 'Quick Guide',
+      quickGuideSubtitle: 'Complete your progress and discover exactly what you need for your goal.',
+      step1: 'Convert your grades between scales with instant results.',
+      step2: 'Enter the percentage and grade of each partial to calculate the accumulated.',
+      step3: 'Review what you need to reach each final grade goal.',
+      instantConversion: 'Instant Conversion',
+      instantConversionSubtitle: 'Immediate and precise results',
+      gradeProjection: 'Partial Projection',
+      gradeProjectionSubtitle: 'Calculate what you need for your goal',
+    },
+    // Converter
+    converter: {
+      title: 'Scale {from} to {to}',
+      description: 'Grade conversion from scale {from} to scale {to}.',
+      inputLabel: 'Enter the grade ({scale} points)',
+      placeholder100: '0-100',
+      placeholder9: '1-9',
+      result: '{value} pts',
+      note: 'Automatically rounded to the nearest official equivalency.',
+      error100: 'Grade must be between 0 and 100.',
+      error9: 'Grade must be between 1 and 9.',
+    },
+    // Points Required
+    points: {
+      title: 'What do I need?',
+      subtitle: 'Enter your partials and discover the grade needed for each goal.',
+      partials: 'Partials:',
+      partialsOption: '{n} partials',
+      clear: 'Clear',
+      accumulated: 'Accumulated:',
+      remaining: 'Remaining:',
+      adjustPercentage: 'Adjust percentages to continue.',
+      partial: 'Partial',
+      percentage: 'Percentage',
+      grade100: 'Grade (1-100)',
+      grade9: 'Grade (1-9)',
+      total: 'Total',
+      percentageWarning: 'Total percentage exceeds 100% ({value}%)',
+      emptyState: 'Add percentages and grades to see the automatic calculation and what you need.',
+      accumulatedGrade: 'Accumulated grade:',
+      points: 'points',
+      forGrade: 'To get',
+      outOfRange: 'Out of range',
+      alreadyReached: 'Already reached',
+      requires: 'Requires {value} pts',
+      requiresLess: 'Requires <1 pt',
+      contributes: 'Contributes {value} pts ({percentage}%)',
+    },
+    // About page
+    about: {
+      context: 'UNET Context',
+      title: 'About the Application',
+      p1: 'This application has been developed to facilitate the calculation and tracking of grades in the evaluation system of the',
+      university: 'Universidad Nacional Experimental del Táchira (UNET)',
+      p2Start: 'At UNET, partial evaluations are graded on a scale of',
+      scale100: '1 to 100 points',
+      p2Mid: '. However, at the end of the academic period, final grades must be converted to a scale of',
+      scale9: '1 to 9 points',
+      p2End: ', following an official equivalency table.',
+      p3: 'The application allows students to enter their partial grades and corresponding percentages to calculate their accumulated grade. Additionally, it shows how much is needed to reach a specific grade, and automatically converts grades to the 9-point system.',
+      tableTitle: 'Official Conversion Table',
+      tableHintDesktop: 'Hover over cells to see the exact grade',
+      tableHintMobile: 'Tap a cell to see the exact grade',
+      exactGrade: 'Exact grade:',
+      excellent: 'Excellent (95-100)',
+      veryGood: 'Very Good (8.x)',
+      good: 'Good (7.x)',
+      passed: 'Passed (45-72)',
+      failed: 'Failed (<45)',
+    },
+    // Footer
+    footer: {
+      rights: 'All rights reserved.',
+    },
+    // Language
+    language: {
+      es: 'ES',
+      en: 'EN',
+    },
+  },
+}
+
+export type Locale = keyof typeof translations
+export type TranslationKeys = typeof translations.es
