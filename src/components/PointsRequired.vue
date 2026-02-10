@@ -171,7 +171,6 @@ const calcularTotal = () => {
     actualizarNota9(i)
   })
 
-  console.log(calculateMissing, percentage.value)
   if (calculateMissing) {
     calculateWhatIsMissing()
   } else {
