@@ -13,11 +13,11 @@ onMounted(() => {
 
 <template>
   <div
-    class="flex items-center min-h-screen flex-col app-bg text-slate-900 dark:text-slate-100 transition-colors duration-300"
+    class="flex items-center min-h-screen flex-col app-bg text-slate-900 dark:text-slate-100 transition-colors duration-300 overflow-x-hidden w-full"
   >
     <Header />
 
-    <main class="flex-1">
+    <main class="lg:flex lg:justify-center flex-1 w-full overflow-x-hidden">
       <RouterView />
     </main>
 

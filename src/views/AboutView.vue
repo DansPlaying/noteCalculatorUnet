@@ -1,5 +1,17 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { conversion } from '@/assets/notes'
+
+const activeTooltip = ref<string | null>(null)
+
+function toggleTooltip(col: number, row: number) {
+  const key = `${col}-${row}`
+  activeTooltip.value = activeTooltip.value === key ? null : key
+}
+
+function isTooltipActive(col: number, row: number) {
+  return activeTooltip.value === `${col}-${row}`
+}
 
 function getRange(column: number, row: number) {
   const start9 = column
@@ -19,24 +31,33 @@ function getRange(column: number, row: number) {
   return `${valores[0]}–${valores[valores.length - 1]}`
 }
 
-function getGradeColorClass(column: number): string {
-  if (column === 9) return 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400'
+function getGradeColorClass(column: number, row: number): string {
+  // Excelente (green) - only for 95-100 cell (grade 9.0)
+  if (column === 9 && row === 0) return 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400'
+  // Muy Bueno (blue) - grades 8.x
   if (column === 8) return 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+  // Bueno (indigo) - grades 7.x
   if (column === 7) return 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-400'
-  if (column === 6) return 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400'
+  // Aprobado (amber) - 45-72 points
+  // Column 6: all rows (62-72), Column 5: all rows (51-61), Column 4: rows 5-9 (45-50)
+  if (column === 6 || column === 5 || (column === 4 && row >= 5))
+    return 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400'
+  // Reprobado (red) - below 45 points (columns 1-3 all, column 4 rows 0-4)
+  if (column <= 3 || (column === 4 && row < 5))
+    return 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400'
   return 'text-gray-700 dark:text-gray-300'
 }
 </script>
 
 <template>
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 md:py-12">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10 md:py-12">
     <section
-      class="rounded-3xl border border-white/70 dark:border-slate-700/70 bg-white/80 dark:bg-slate-900/70 backdrop-blur-xl shadow-xl px-8 py-10 md:px-10 md:py-12"
+      class="rounded-3xl border border-white/70 dark:border-slate-700/70 bg-white/80 dark:bg-slate-900/70 backdrop-blur-xl shadow-xl px-5 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12"
     >
       <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
         Contexto UNET
       </p>
-      <h1 class="font-display text-3xl font-semibold text-slate-900 dark:text-white mt-3">
+      <h1 class="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white mt-3">
         Sobre la Aplicación
       </h1>
 
@@ -66,11 +87,12 @@ function getGradeColorClass(column: number): string {
 
     <section class="pt-12 pb-2">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
-        <h2 class="font-display text-2xl font-semibold text-slate-900 dark:text-white">
+        <h2 class="font-display text-xl sm:text-2xl font-semibold text-slate-900 dark:text-white">
           Tabla de Conversión Oficial
         </h2>
         <p class="text-sm text-slate-500 dark:text-slate-400">
-          Pasa el cursor sobre las celdas para ver la nota exacta
+          <span class="hidden sm:inline">Pasa el cursor sobre las celdas para ver la nota exacta</span>
+          <span class="sm:hidden">Toca una celda para ver la nota exacta</span>
         </p>
       </div>
 
@@ -117,15 +139,17 @@ function getGradeColorClass(column: number): string {
                 <td
                   v-for="colIndex in 9"
                   :key="colIndex"
-                  class="px-3 py-2.5 text-center font-medium relative group"
-                  :class="getGradeColorClass(colIndex)"
+                  class="px-3 py-2.5 text-center font-medium relative group cursor-pointer"
+                  :class="getGradeColorClass(colIndex, rowIndex - 1)"
+                  @click="toggleTooltip(colIndex, rowIndex - 1)"
                 >
                   {{ getRange(colIndex, rowIndex - 1) }}
 
                   <!-- Tooltip -->
                   <div
                     v-if="!(colIndex === 9 && rowIndex > 1)"
-                    class="absolute z-20 hidden group-hover:block px-3 py-1.5 text-xs font-medium text-white bg-slate-900 dark:bg-slate-600 rounded-lg shadow-lg bottom-full mt-1 left-1/2 -translate-x-1/2 whitespace-nowrap"
+                    class="absolute z-20 px-3 py-1.5 text-xs font-medium text-white bg-slate-900 dark:bg-slate-600 rounded-lg shadow-lg bottom-full mb-1 left-1/2 -translate-x-1/2 whitespace-nowrap transition-opacity duration-150"
+                    :class="isTooltipActive(colIndex, rowIndex - 1) ? 'block' : 'hidden group-hover:block'"
                   >
                     Nota exacta: {{ colIndex }}.{{ rowIndex - 1 }}
                     <div
@@ -144,7 +168,7 @@ function getGradeColorClass(column: number): string {
           <span
             class="w-4 h-4 rounded bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700"
           ></span>
-          <span class="text-slate-600 dark:text-slate-400">Excelente (9.x)</span>
+          <span class="text-slate-600 dark:text-slate-400">Excelente (95-100)</span>
         </div>
         <div class="flex items-center gap-2">
           <span
@@ -162,7 +186,13 @@ function getGradeColorClass(column: number): string {
           <span
             class="w-4 h-4 rounded bg-amber-100 dark:bg-amber-900/30 border border-amber-300 dark:border-amber-700"
           ></span>
-          <span class="text-slate-600 dark:text-slate-400">Aprobado (6.x)</span>
+          <span class="text-slate-600 dark:text-slate-400">Aprobado (45-72)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span
+            class="w-4 h-4 rounded bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-700"
+          ></span>
+          <span class="text-slate-600 dark:text-slate-400">Reprobado (&lt;45)</span>
         </div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="p-8 md:p-10 rounded-3xl border border-white/70 dark:border-slate-700/70 bg-white/80 dark:bg-slate-900/70 backdrop-blur-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+    class="p-5 sm:p-8 md:p-10 rounded-3xl border border-white/70 dark:border-slate-700/70 bg-white/80 dark:bg-slate-900/70 backdrop-blur-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
   >
     <!-- Header with Dropdown -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
