@@ -10,22 +10,32 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col h-screen dark:bg-gray-600">
-    <div
-      class="flex justify-between items-center p-4 bg-[#0f47ad] shadow-sm m-4 text-white dark:bg-gray-800"
+    <header
+      class="flex justify-between items-center p-4 bg-blue-700 shadow-md m-4 rounded-lg text-white dark:bg-gray-800"
     >
-      <nav>
-        <RouterLink to="/" class="dark:text-white">Calculadora</RouterLink>
-        <RouterLink to="/about" class="dark:text-white pl-4">Sobre el App</RouterLink>
+      <nav class="flex gap-4">
+        <RouterLink
+          to="/"
+          class="hover:text-blue-200 dark:hover:text-blue-400 transition-colors"
+          exact-active-class="font-bold underline underline-offset-4"
+          >Calculadora</RouterLink
+        >
+        <RouterLink
+          to="/about"
+          class="hover:text-blue-200 dark:hover:text-blue-400 transition-colors"
+          exact-active-class="font-bold underline underline-offset-4"
+          >Sobre el App</RouterLink
+        >
       </nav>
 
       <ThemeToggle />
-    </div>
+    </header>
 
     <div class="flex-1 overflow-auto">
       <RouterView />
     </div>
 
-    <footer class="bg-[#0f47ad] shadow-sm m-4 dark:bg-gray-800 text-md flex justify-center">
+    <footer class="bg-blue-700 shadow-md m-4 rounded-lg dark:bg-gray-800 text-md flex justify-center">
       <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
         <span class="text-white sm:text-center"
           >© {{ new Date().getFullYear() }}

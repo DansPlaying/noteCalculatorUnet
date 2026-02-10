@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex-1 p-6 ml-6 bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700"
+    class="flex-1 p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
   >
     <div class="flex justify-center items-center">
       <h5 class="text-center dark:text-white pr-4">¿CUANTO ME FALTA?</h5>
@@ -87,11 +87,11 @@
       <div
         v-for="(elem, index) in totalRequired"
         :key="index"
-        class="w-[140px] md:w-[160px] p-2 h-[66px] bg-white dark:text-white border-2 border-gray-600 rounded-lg shadow-sm dark:bg-gray-500 dark:border-gray-700"
+        class="w-[140px] md:w-[160px] p-2 h-[66px] bg-gray-50 dark:text-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-gray-600"
       >
         <div v-if="elem.required != 0 || elem.missingNote <= 1">
           <h6>Para obtener {{ elem.note }}</h6>
-          <p class="text-green-200">
+          <p class="text-green-600 dark:text-green-400">
             {{
               elem.required > 0
                 ? `requiere ${elem.required} ${elem.required == 1 ? 'pt' : 'pts'}.`
@@ -100,7 +100,7 @@
           </p>
         </div>
         <div v-else>
-          <p class="text-red-200">Fuera de rango para obtener {{ elem.note }}</p>
+          <p class="text-red-600 dark:text-red-400">Fuera de rango para obtener {{ elem.note }}</p>
         </div>
       </div>
     </div>
