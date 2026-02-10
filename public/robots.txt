@@ -1,0 +1,6 @@
+# robots.txt for Calculadora de Notas UNET
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://unetnotecalculator.netlify.app/sitemap.xml
