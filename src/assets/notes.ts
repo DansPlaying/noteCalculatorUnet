@@ -118,24 +118,23 @@ export const notesRequired = [
 ]
 
 export function convertirNota(nota: number, escala: '100' | '9'): number | null {
-  const notaToSearch = nota
-
   if (
-    notaToSearch < 0 ||
-    (escala === '100' && notaToSearch > 100) ||
-    (escala === '9' && notaToSearch > 9)
+    nota < 0 ||
+    (escala === '100' && nota > 100) ||
+    (escala === '9' && nota > 9)
   ) {
     return null
   }
 
-  if (escala === '100' && notaToSearch >= 95) return 9.0
-  if (escala === '100' && notaToSearch <= 7) return 1
-
   if (escala === '100') {
-    const match = conversion.find((item) => item.nota100 === notaToSearch)
+    if (nota >= 95) return 9.0
+    if (nota <= 7) return 1
+
+    const notaRedondeada = Math.round(nota)
+    const match = conversion.find((item) => item.nota100 === notaRedondeada)
     return match ? match.nota9 : null
   } else {
-    const match = conversion.find((item) => item.nota9 === notaToSearch)
+    const match = conversion.find((item) => item.nota9 === nota)
     return match ? match.nota100 : null
   }
 }

@@ -10,9 +10,9 @@
         @change="ajustarParciales"
         class="bg-gray-50 border w-[120px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       >
-        <option value="1">2 parciales</option>
-        <option value="2">3 parciales</option>
-        <option value="3">4 parciales</option>
+        <option value="2">2 parciales</option>
+        <option value="3">3 parciales</option>
+        <option value="4">4 parciales</option>
       </select>
     </div>
 
@@ -43,6 +43,8 @@
                 :id="'percent' + index"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="number"
+                min="0"
+                max="100"
                 v-model.number="parcial.porcentaje"
                 @input="calcularTotal"
               />
@@ -52,6 +54,8 @@
                 :id="'note' + index"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="number"
+                min="0"
+                max="100"
                 v-model.number="parcial.nota100"
                 @input="calcularTotal"
               />
@@ -67,7 +71,11 @@
       </table>
     </div>
 
-    <h3 v-if="totalNota9" class="dark:text-white font-bold text-xl pt-4 text-center pr-2">
+    <p v-if="percentageWarning" class="text-red-500 dark:text-red-400 pt-4 text-center font-medium">
+      El porcentaje total excede 100% ({{ percentage }}%)
+    </p>
+
+    <h3 v-if="totalNota9 && !percentageWarning" class="dark:text-white font-bold text-xl pt-4 text-center pr-2">
       Nota acumulada: {{ totalNota9.toFixed(2) }} puntos
     </h3>
 
@@ -104,8 +112,9 @@ import { reactive, computed, ref } from 'vue'
 import { convertirNota, notesRequired, roundNote } from '@/assets/notes'
 import type { Parcial, Note } from '@/utils/parcial'
 
-const notesCount = ref(1)
+const notesCount = ref(2)
 const percentage = ref(0)
+const percentageWarning = ref(false)
 const totalRequired = ref<Array<Note>>([])
 const parciales = reactive<Array<Parcial>>([])
 
@@ -125,6 +134,8 @@ const ajustarParciales = () => {
   const nuevos = generarParciales(notesCount.value)
   parciales.splice(0, parciales.length, ...nuevos)
   totalRequired.value = []
+  percentageWarning.value = false
+  percentage.value = 0
 }
 
 const actualizarNota9 = (index: number) => {
@@ -163,15 +174,17 @@ const calculateWhatIsMissing = () => {
 }
 
 const calcularTotal = () => {
-  let calculateMissing = false
   percentage.value = 0
   parciales.forEach((p, i) => {
-    calculateMissing = p.nota100 != 0 && p.porcentaje != 0
-    percentage.value += p.porcentaje
+    percentage.value += p.porcentaje || 0
     actualizarNota9(i)
   })
 
-  if (calculateMissing) {
+  percentageWarning.value = percentage.value > 100
+
+  const hasValidData = parciales.some((p) => p.nota100 !== 0 && p.porcentaje !== 0)
+
+  if (hasValidData && percentage.value <= 100) {
     calculateWhatIsMissing()
   } else {
     totalRequired.value = []
