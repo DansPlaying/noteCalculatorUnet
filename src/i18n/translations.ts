@@ -102,6 +102,18 @@ export const translations = {
       es: 'ES',
       en: 'EN',
     },
+    // Settings
+    settings: {
+      title: 'Configuración',
+      openMenu: 'Abrir configuración',
+      close: 'Cerrar',
+      language: 'Idioma',
+      theme: 'Tema',
+      fontSize: 'Tamaño de texto',
+      fontSizeSmall: 'Pequeño',
+      fontSizeMedium: 'Mediano',
+      fontSizeLarge: 'Grande',
+    },
   },
   en: {
     // Header
@@ -205,6 +217,18 @@ export const translations = {
     language: {
       es: 'ES',
       en: 'EN',
+    },
+    // Settings
+    settings: {
+      title: 'Settings',
+      openMenu: 'Open settings',
+      close: 'Close',
+      language: 'Language',
+      theme: 'Theme',
+      fontSize: 'Font Size',
+      fontSizeSmall: 'Small',
+      fontSizeMedium: 'Medium',
+      fontSizeLarge: 'Large',
     },
   },
 }

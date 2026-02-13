@@ -32,3 +32,13 @@ coverage
 # Claude AI
 .claude/
 CLAUDE.md
+
+# Android - signing keys and sensitive files
+*.keystore
+*.jks
+keystore.properties
+android/app/google-services.json
+
+# Android - build outputs (optional - you may want to keep these)
+android/app/build/
+android/.gradle/

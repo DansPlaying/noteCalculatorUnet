@@ -8,20 +8,18 @@
         <h3 class="font-display text-xl font-semibold text-slate-900 dark:text-white">
           {{ t.points.title }}
         </h3>
-        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+        <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
           {{ t.points.subtitle }}
         </p>
       </div>
 
-      <div class="flex items-center gap-3">
-        <label for="notes" class="text-sm font-medium text-slate-700 dark:text-slate-300">
-          {{ t.points.partials }}
-        </label>
+      <div class="flex items-center gap-2 sm:gap-3">
         <select
           id="notes"
           v-model="notesCount"
           @change="ajustarParciales"
-          class="px-4 py-2 text-sm bg-white/90 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-600 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900/30 focus:border-blue-500 transition-all duration-200"
+          class="px-3 sm:px-4 py-2 text-sm font-medium bg-blue-50 dark:bg-blue-900/30 border-2 border-blue-200 dark:border-blue-700 rounded-xl text-blue-700 dark:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 focus:border-blue-400 transition-all duration-200 cursor-pointer appearance-none bg-no-repeat bg-right pr-8"
+          style="background-image: url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e&quot;); background-position: right 0.5rem center; background-size: 1.25em 1.25em;"
         >
           <option value="2">{{ t.points.partialsOption.replace('{n}', '2') }}</option>
           <option value="3">{{ t.points.partialsOption.replace('{n}', '3') }}</option>
@@ -30,7 +28,7 @@
         <button
           type="button"
           @click="resetParciales"
-          class="px-4 py-2 text-sm font-semibold rounded-2xl border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-500 transition-colors duration-200"
+          class="px-3 sm:px-4 py-2 text-sm font-semibold rounded-xl bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-700 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 hover:border-red-300 dark:hover:border-red-600 transition-all duration-200"
         >
           {{ t.points.clear }}
         </button>
@@ -70,37 +68,30 @@
       </div>
     </div>
 
-    <!-- Table -->
-    <div class="py-4">
-      <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700 mb-8">
+    <!-- Compact Table -->
+    <div class="py-2">
+      <div class="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden mb-6">
         <table
-          class="w-full min-w-[600px] text-sm text-left text-slate-500 dark:text-slate-400"
+          class="w-full text-sm text-slate-500 dark:text-slate-400"
           aria-label="Tabla de parciales"
         >
           <thead
-            class="bg-slate-100/80 dark:bg-slate-800 text-xs font-semibold uppercase tracking-wide text-slate-700 dark:text-slate-300 border-b border-slate-200 dark:border-slate-600"
+            class="bg-slate-100/80 dark:bg-slate-800 text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-600"
           >
             <tr>
-              <th scope="col" class="px-4 py-4">{{ t.points.partial }}</th>
-              <th scope="col" class="px-4 py-4">{{ t.points.percentage }}</th>
-              <th scope="col" class="px-4 py-4 min-w-[100px]">{{ t.points.grade100 }}</th>
-              <th scope="col" class="px-4 py-4 min-w-[80px]">{{ t.points.grade9 }}</th>
-              <th scope="col" class="px-4 py-4">{{ t.points.total }}</th>
+              <th scope="col" class="px-2 sm:px-3 py-3 text-center">%</th>
+              <th scope="col" class="px-2 sm:px-3 py-3 text-center">Nota</th>
+              <th scope="col" class="px-2 sm:px-3 py-3 text-center">→9</th>
+              <th scope="col" class="px-2 sm:px-3 py-3 text-center">Pts</th>
             </tr>
           </thead>
           <tbody>
             <tr
               v-for="(parcial, index) in parciales"
               :key="index"
-              class="bg-white/90 dark:bg-slate-900/60 border-b border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors duration-150"
+              class="bg-white/90 dark:bg-slate-900/60 border-b border-slate-200 dark:border-slate-700 last:border-b-0"
             >
-              <th
-                scope="row"
-                class="px-4 py-4 font-medium text-slate-900 dark:text-white whitespace-nowrap"
-              >
-                {{ parcial.nombre }}
-              </th>
-              <td class="px-4 py-4">
+              <td class="px-1 sm:px-2 py-2">
                 <input
                   :id="'percent' + index"
                   type="number"
@@ -109,12 +100,13 @@
                   v-model.number="parcial.porcentaje"
                   @input="calcularTotal"
                   step="0.1"
-                  class="w-full px-3 py-2.5 text-sm bg-white/90 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-600 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900/30 focus:border-blue-500 transition-all duration-200"
-                  :aria-label="`Porcentaje ${parcial.nombre}`"
+                  inputmode="decimal"
+                  class="w-full px-2 py-2 text-sm text-center bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-700 focus:border-blue-400 transition-all"
+                  :aria-label="`Porcentaje parcial ${index + 1}`"
                   placeholder="%"
                 />
               </td>
-              <td class="px-4 py-4">
+              <td class="px-1 sm:px-2 py-2">
                 <input
                   :id="'note' + index"
                   type="number"
@@ -123,16 +115,17 @@
                   v-model.number="parcial.nota100"
                   @input="calcularTotal"
                   step="0.1"
-                  class="w-full px-3 py-2.5 text-sm bg-white/90 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-600 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900/30 focus:border-blue-500 transition-all duration-200"
-                  :aria-label="`Nota ${parcial.nombre}`"
+                  inputmode="decimal"
+                  class="w-full px-2 py-2 text-sm text-center bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-700 focus:border-blue-400 transition-all"
+                  :aria-label="`Nota parcial ${index + 1}`"
                   placeholder="0-100"
                 />
               </td>
-              <td class="px-4 py-4 text-center font-medium text-slate-700 dark:text-slate-300">
-                {{ parcial.nota9 || '-' }}
+              <td class="px-1 sm:px-2 py-2 text-center font-medium text-slate-600 dark:text-slate-400">
+                {{ parcial.nota9 || '—' }}
               </td>
-              <td class="px-4 py-4 text-center font-semibold text-slate-900 dark:text-white">
-                {{ parcial.total ? parcial.total.toFixed(2) : '-' }}
+              <td class="px-1 sm:px-2 py-2 text-center font-bold text-slate-900 dark:text-white">
+                {{ parcial.total ? parcial.total.toFixed(2) : '—' }}
               </td>
             </tr>
           </tbody>
@@ -347,7 +340,8 @@ const calculateWhatIsMissing = () => {
     const missingNote = roundNote(missingNoteRaw)
     const requiredAverage9Raw = missingNoteRaw / (missingPercentage / 100)
     const requiredAverage9 = roundToTenth(requiredAverage9Raw)
-    const hasReached = missingNoteRaw <= 0
+    // Treat as "already reached" if they need 0 or less, OR if they need less than 1 point (minimum is 1)
+    const hasReached = missingNoteRaw <= 0 || (requiredAverage9Raw > 0 && requiredAverage9Raw < 1)
     const outOfRange = requiredAverage9Raw > 9
     const finalRequiredNote =
       hasReached || outOfRange

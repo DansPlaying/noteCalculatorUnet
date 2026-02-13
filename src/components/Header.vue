@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ThemeToggle from './ThemeToggle.vue'
 import LanguageSelector from './LanguageSelector.vue'
+import MobileSettingsMenu from './MobileSettingsMenu.vue'
 import { useI18n } from '@/i18n'
 
 const { t } = useI18n()
@@ -25,8 +26,13 @@ const { t } = useI18n()
         </div>
 
         <div class="flex items-center justify-between sm:justify-end gap-2 sm:gap-3">
-          <LanguageSelector />
-          <ThemeToggle />
+          <!-- Desktop: Show language and theme toggles -->
+          <div class="hidden md:flex items-center gap-2 sm:gap-3">
+            <LanguageSelector />
+            <ThemeToggle />
+          </div>
+          <!-- Mobile: Show settings menu -->
+          <MobileSettingsMenu />
         </div>
       </div>
 

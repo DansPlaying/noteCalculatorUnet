@@ -10,7 +10,7 @@ const { t } = useI18n()
   <div class="max-w-6xl mx-auto px-4 md:px-6 py-6 sm:py-10 md:py-12">
     <section class="grid gap-7 lg:grid-cols-[1.1fr,0.9fr] section-spacing">
       <div
-        class="rounded-3xl border border-white/70 dark:border-slate-700/70 bg-white/80 dark:bg-slate-900/70 backdrop-blur-xl shadow-xl px-5 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12"
+        class="rounded-3xl border border-white/70 dark:border-slate-700/70 bg-white/80 dark:bg-slate-900/70 backdrop-blur-xl shadow-xl px-4 py-5 sm:px-6 sm:py-6"
       >
         <span
           class="inline-flex items-center gap-2 rounded-full bg-blue-100/80 text-blue-700 dark:bg-blue-900/40 dark:text-blue-200 px-3 py-1 text-xs font-semibold uppercase tracking-widest"
@@ -18,98 +18,47 @@ const { t } = useI18n()
           {{ t.home.badge }}
         </span>
         <h1
-          class="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white mt-6"
+          class="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white mt-3"
         >
           {{ t.home.title }}
         </h1>
-        <p class="text-base md:text-lg text-slate-600 dark:text-slate-300 mt-5 leading-relaxed">
+        <p
+          class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-2 leading-relaxed"
+        >
           {{ t.home.subtitle }}
         </p>
-
-        <div class="mt-9 grid grid-cols-3 gap-3 sm:gap-4">
-          <div
-            class="rounded-2xl border border-slate-200/70 dark:border-slate-700/70 bg-white/90 dark:bg-slate-800/60 px-3 py-4 sm:px-6 sm:py-5 shadow-sm"
-          >
-            <p class="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-slate-500 dark:text-slate-400">
-              {{ t.home.scale }}
-            </p>
-            <p class="font-display text-base sm:text-lg font-semibold text-slate-900 dark:text-white mt-1">
-              1 - 100
-            </p>
-          </div>
-          <div
-            class="rounded-2xl border border-slate-200/70 dark:border-slate-700/70 bg-white/90 dark:bg-slate-800/60 px-3 py-4 sm:px-6 sm:py-5 shadow-sm"
-          >
-            <p class="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-slate-500 dark:text-slate-400">
-              {{ t.home.conversion }}
-            </p>
-            <p class="font-display text-base sm:text-lg font-semibold text-slate-900 dark:text-white mt-1">
-              1 - 9
-            </p>
-          </div>
-          <div
-            class="rounded-2xl border border-slate-200/70 dark:border-slate-700/70 bg-white/90 dark:bg-slate-800/60 px-3 py-4 sm:px-6 sm:py-5 shadow-sm"
-          >
-            <p class="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-slate-500 dark:text-slate-400">
-              {{ t.home.table }}
-            </p>
-            <p class="font-display text-base sm:text-lg font-semibold text-slate-900 dark:text-white mt-1">
-              {{ t.home.official }}
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="section-spacing">
-      <div
-        class="rounded-3xl border border-white/60 dark:border-slate-700/70 bg-gradient-to-br from-gray-100 via-slate-50 to-white/35 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 px-5 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12 dark:text-white shadow-xl"
-      >
-        <h2 class="font-display text-xl md:text-2xl font-semibold">{{ t.home.quickGuide }}</h2>
-        <p class="dark:text-slate-200 mt-4 leading-relaxed">
-          {{ t.home.quickGuideSubtitle }}
-        </p>
-        <div class="mt-8 space-y-6">
-          <div class="flex items-start gap-3">
-            <span
-              class="flex h-7 w-7 items-center justify-center rounded-full bg-white/15 text-sm font-semibold"
-              >1</span
-            >
-            <p class="text-sm dark:text-slate-100 leading-relaxed">
-              {{ t.home.step1 }}
-            </p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span
-              class="flex h-7 w-7 items-center justify-center rounded-full bg-white/15 text-sm font-semibold"
-              >2</span
-            >
-            <p class="text-sm dark:text-slate-100 leading-relaxed">
-              {{ t.home.step2 }}
-            </p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span
-              class="flex h-7 w-7 items-center justify-center rounded-full bg-white/15 text-sm font-semibold"
-              >3</span
-            >
-            <p class="text-sm dark:text-slate-100 leading-relaxed">
-              {{ t.home.step3 }}
-            </p>
-          </div>
-        </div>
       </div>
     </section>
 
-    <section class="section-spacing">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-7">
+    <section id="conversion-section" class="section-spacing scroll-mt-24">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-5">
         <h2 class="font-display text-xl sm:text-2xl font-semibold text-slate-900 dark:text-white">
           {{ t.home.instantConversion }}
         </h2>
-        <p class="text-sm text-slate-500 dark:text-slate-400">{{ t.home.instantConversionSubtitle }}</p>
+        <p class="text-sm text-slate-500 dark:text-slate-400">
+          {{ t.home.instantConversionSubtitle }}
+        </p>
       </div>
-      <div class="flex flex-col md:flex-row gap-6 md:gap-8 mb-12">
-        <ConverterStructure escalaOrigen="100" escalaDestino="9" />
-        <ConverterStructure escalaOrigen="9" escalaDestino="100" />
+
+      <!-- Converters Card -->
+      <div
+        class="rounded-3xl border border-blue-100 dark:border-slate-700/70 bg-blue-50/50 dark:bg-slate-900/70 backdrop-blur-xl shadow-lg p-4 sm:p-6 mb-8"
+      >
+        <div class="space-y-3">
+          <div
+            id="conversion-100"
+            class="rounded-2xl bg-white dark:bg-slate-800/80 shadow-sm p-3 sm:p-4 scroll-mt-28"
+          >
+            <ConverterStructure escalaOrigen="100" escalaDestino="9" />
+          </div>
+          <div class="h-4"></div>
+          <div
+            id="conversion-9"
+            class="rounded-2xl bg-white dark:bg-slate-800/80 shadow-sm p-3 sm:p-4 scroll-mt-28"
+          >
+            <ConverterStructure escalaOrigen="9" escalaDestino="100" />
+          </div>
+        </div>
       </div>
     </section>
 
@@ -118,7 +67,9 @@ const { t } = useI18n()
         <h2 class="font-display text-xl sm:text-2xl font-semibold text-slate-900 dark:text-white">
           {{ t.home.gradeProjection }}
         </h2>
-        <p class="text-sm text-slate-500 dark:text-slate-400">{{ t.home.gradeProjectionSubtitle }}</p>
+        <p class="text-sm text-slate-500 dark:text-slate-400">
+          {{ t.home.gradeProjectionSubtitle }}
+        </p>
       </div>
       <PointsRequired />
     </section>

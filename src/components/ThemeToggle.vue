@@ -1,20 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { useI18n } from '@/i18n'
+import { useTheme } from '@/composables/useTheme'
 
 const { t } = useI18n()
-const isDark = ref(false)
+const { isDark, initTheme, toggleTheme } = useTheme()
 
 onMounted(() => {
-  isDark.value = localStorage.getItem('theme') === 'dark'
-  document.documentElement.classList.toggle('dark', isDark.value)
+  initTheme()
 })
-
-function toggleTheme() {
-  isDark.value = !isDark.value
-  document.documentElement.classList.toggle('dark', isDark.value)
-  localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
-}
 </script>
 
 <template>
