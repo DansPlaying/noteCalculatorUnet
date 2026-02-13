@@ -1,9 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import { conversion } from '@/assets/notes'
 import { useI18n } from '@/i18n'
 
 const { t } = useI18n()
+const route = useRoute()
+
+// Scroll to hash on mount
+onMounted(() => {
+  if (route.hash) {
+    setTimeout(() => {
+      const element = document.querySelector(route.hash)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }, 100)
+  }
+})
 
 const activeTooltip = ref<string | null>(null)
 
@@ -80,7 +94,7 @@ function getGradeColorClass(column: number, row: number): string {
       </div>
     </section>
 
-    <section class="pt-12 pb-2">
+    <section id="conversion-table" class="pt-12 pb-2 scroll-mt-24">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
         <h2 class="font-display text-xl sm:text-2xl font-semibold text-slate-900 dark:text-white">
           {{ t.about.tableTitle }}

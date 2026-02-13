@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Notes Calculator Unet</string>
+    <string name="title_activity_main">Notes Calculator Unet</string>
+    <string name="package_name">com.notescalculatorunet.app</string>
+    <string name="custom_url_scheme">com.notescalculatorunet.app</string>
+</resources>

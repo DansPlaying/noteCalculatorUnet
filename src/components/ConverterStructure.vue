@@ -32,16 +32,6 @@ watch(nota, () => {
   }
 })
 
-const titulo = computed(() =>
-  t.value.converter.title.replace('{from}', props.escalaOrigen).replace('{to}', props.escalaDestino),
-)
-
-const descripcion = computed(() =>
-  t.value.converter.description
-    .replace('{from}', props.escalaOrigen)
-    .replace('{to}', props.escalaDestino),
-)
-
 const inputLabel = computed(() =>
   t.value.converter.inputLabel.replace('{scale}', props.escalaOrigen),
 )
@@ -52,110 +42,65 @@ const errorMessage = computed(() =>
 </script>
 
 <template>
-  <div
-    class="relative flex-1 p-5 sm:p-8 md:p-10 rounded-3xl border border-white/70 dark:border-slate-700/70
-           bg-white/80 dark:bg-slate-900/70 backdrop-blur-xl shadow-lg
-           hover:shadow-xl transition-shadow duration-300 overflow-hidden"
-  >
+  <div class="converter-item flex items-center gap-2 sm:gap-3">
+    <!-- Scale badge -->
     <div
-      class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-blue-500 via-sky-400 to-cyan-300"
-    ></div>
-    <!-- Card Header with Icon -->
-    <div class="flex items-center gap-3 mb-7">
-      <div
-        class="w-11 h-11 rounded-2xl bg-blue-100 dark:bg-blue-900/30
-               flex items-center justify-center flex-shrink-0 shadow-sm"
-      >
-        <font-awesome-icon icon="calculator" class="text-blue-600 dark:text-blue-400" />
-      </div>
-      <div>
-        <h3 class="font-display text-xl font-semibold text-slate-900 dark:text-white">
-          {{ titulo }}
-        </h3>
-        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
-          {{ descripcion }}
-        </p>
-      </div>
+      class="flex items-center gap-1.5 px-2.5 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-md flex-shrink-0"
+    >
+      <span class="text-xs sm:text-sm font-bold">{{ props.escalaOrigen }}</span>
+      <font-awesome-icon icon="arrow-right" class="text-[10px] opacity-80" />
+      <span class="text-xs sm:text-sm font-bold">{{ props.escalaDestino }}</span>
     </div>
 
-    <!-- Form -->
-    <div class="space-y-7">
-      <div>
-        <label
-          :for="props.escalaOrigen"
-          class="block mb-4 text-sm font-semibold text-slate-700 dark:text-slate-300"
-        >
-          {{ inputLabel }}
-        </label>
+    <!-- Input -->
+    <input
+      :id="props.escalaOrigen"
+      v-model.number="nota"
+      type="number"
+      :min="props.escalaOrigen === '100' ? 0 : 1"
+      :max="props.escalaOrigen === '100' ? 100 : 9"
+      :step="props.escalaOrigen === '9' ? 0.1 : 1"
+      inputmode="decimal"
+      class="flex-1 min-w-0 px-2 py-2 text-sm text-center font-medium bg-white dark:bg-slate-800 border-2 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 transition-all duration-200 focus:outline-none focus:ring-2"
+      :class="
+        hasError
+          ? 'border-red-400 dark:border-red-500 focus:ring-red-300 dark:focus:ring-red-700'
+          : 'border-slate-200 dark:border-slate-600 focus:border-blue-400 focus:ring-blue-300 dark:focus:ring-blue-700'
+      "
+      :placeholder="props.escalaOrigen === '9' ? '1-9' : '0-100'"
+      :aria-label="inputLabel"
+      :aria-invalid="hasError"
+      :aria-describedby="hasError ? `error-${props.escalaOrigen}` : undefined"
+    />
 
-        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
-          <input
-            :id="props.escalaOrigen"
-            v-model.number="nota"
-            type="number"
-            :min="props.escalaOrigen === '100' ? 0 : 1"
-            :max="props.escalaOrigen === '100' ? 100 : 9"
-            :step="props.escalaOrigen === '9' ? 0.1 : 1"
-            inputmode="decimal"
-            class="max-w-[170px] w-full px-4 py-2.5 text-base
-                   bg-white/90 dark:bg-slate-800/70
-                   border rounded-2xl
-                   text-slate-900 dark:text-white
-                   placeholder-slate-400 dark:placeholder-slate-500
-                   transition-all duration-200
-                   focus:outline-none focus:ring-4"
-            :class="
-              hasError
-                ? 'border-red-500 dark:border-red-400 focus:border-red-500 focus:ring-red-100 dark:focus:ring-red-900/30'
-                : 'border-slate-200 dark:border-slate-600 focus:border-blue-500 focus:ring-blue-100 dark:focus:ring-blue-900/30'
-            "
-            :placeholder="props.escalaOrigen === '9' ? '1-9' : '0-100'"
-            :aria-invalid="hasError"
-            :aria-describedby="hasError ? `error-${props.escalaOrigen}` : undefined"
-          />
-          <Transition name="result">
-            <div
-              v-if="resultado !== null && !hasError"
-              class="flex-1"
-              role="status"
-              aria-live="polite"
-            >
-              <div
-                class="flex items-center gap-2 px-4 py-3
-                       bg-blue-50/90 dark:bg-blue-900/20
-                       rounded-2xl border border-blue-200 dark:border-blue-800"
-              >
-                <font-awesome-icon
-                  icon="check-circle"
-                  class="text-base text-blue-600 dark:text-blue-400"
-                />
-                <p class="text-sm font-semibold text-slate-900 dark:text-white">
-                  {{ resultado }} pts
-                </p>
-              </div>
-            </div>
-          </Transition>
-        </div>
+    <font-awesome-icon icon="arrow-right" class="text-slate-300 dark:text-slate-600 text-xs flex-shrink-0" />
 
-        <p class="mt-4 text-xs text-slate-500 dark:text-slate-400">
-          {{ t.converter.note }}
-        </p>
-
-        <!-- Error Message -->
-        <Transition name="shake">
-          <p
-            v-if="hasError"
-            :id="`error-${props.escalaOrigen}`"
-            role="alert"
-            class="mt-4 text-sm font-semibold text-red-600 dark:text-red-400"
-          >
-            {{ errorMessage }}
-          </p>
-        </Transition>
-      </div>
-
+    <!-- Result -->
+    <div
+      class="flex-1 min-w-0 px-2 py-2 text-sm text-center font-bold rounded-xl transition-all duration-300"
+      :class="
+        resultado !== null && !hasError
+          ? 'bg-gradient-to-r from-green-400 to-emerald-500 text-white shadow-md'
+          : 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 border-2 border-dashed border-slate-200 dark:border-slate-700'
+      "
+      role="status"
+      aria-live="polite"
+    >
+      {{ resultado !== null && !hasError ? resultado : '?' }}
     </div>
   </div>
+
+  <!-- Error Message -->
+  <Transition name="shake">
+    <p
+      v-if="hasError"
+      :id="`error-${props.escalaOrigen}`"
+      role="alert"
+      class="mt-2 text-xs font-semibold text-red-600 dark:text-red-400 text-right"
+    >
+      {{ errorMessage }}
+    </p>
+  </Transition>
 </template>
 
 <style scoped>
